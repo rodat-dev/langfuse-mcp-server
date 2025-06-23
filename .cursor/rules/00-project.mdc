@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+This project surfaces the Langfuse API in Vercel as a remote MCP server.
+
+**Technical Info**
+* Package Manager - `bun`
+* Deployment - `vercel`
+* Validation and Schema - `zod`
+* HTTP client - `fetch`

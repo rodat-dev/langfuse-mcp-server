@@ -1,0 +1,25 @@
+{
+  "name": "langfuse-mcp-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.4.0",
+  "dependencies": {
+    "@vercel/mcp-adapter": "^0.4.1",
+    "dotenv": "^16.5.0",
+    "langfuse": "^3.37.5",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10"
+  }
+}
