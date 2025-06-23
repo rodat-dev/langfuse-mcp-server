@@ -2,7 +2,7 @@ import { createMcpHandler } from "@vercel/mcp-adapter";
 import { PromptManager } from "./prompt-management.js";
 import { CreatePromptRequest, CreatePromptRequestSchema } from "./schemas/prompt.js";
 import { z } from "zod";
-import { TextContent, type GetPromptResult } from "@modelcontextprotocol/sdk/types.js";
+import { type GetPromptResult } from "@modelcontextprotocol/sdk/types.js";
 
 async function handleRequest(request: Request) {
   const url: URL = new URL(request.url);
@@ -138,7 +138,7 @@ async function handleRequest(request: Request) {
     );
 
     server.tool(
-      "listPrompts",
+      "list_prompts",
       "List all prompts in the Langfuse project",
       {
         args: z.object({}).describe("No arguments"),
@@ -160,7 +160,7 @@ async function handleRequest(request: Request) {
     );
 
     server.tool(
-      "createPrompt",
+      "create_prompt",
       "Create a new prompt in the Langfuse project",
       {
         prompt: CreatePromptRequestSchema,
@@ -182,7 +182,7 @@ async function handleRequest(request: Request) {
     );
 
     server.tool(
-      "getPrompt",
+      "get_prompt",
       "Get a prompt from the Langfuse project",
       {
         name: z.string().min(1).describe("The name of the prompt to get"),
@@ -206,7 +206,7 @@ async function handleRequest(request: Request) {
     )
 
     server.tool(
-      "updateLabels",
+      "update_labels",
       "Update the labels of a prompt",
       {
         name: z.string().min(1).describe("The name of the prompt to publish"),
