@@ -38,13 +38,14 @@ async function handleRequest(request: Request) {
         `Get the prompt named '${name}'`,
         {},
         async (): Promise<GetPromptResult> => {
+          const promptResponse = await promptManager.getPrompt({ name });
           return {
             messages: [
               {
                 role: "assistant",
                 content: {
                   type: "text",
-                  text: await promptManager.getPrompt({ name })
+                  text: JSON.stringify(promptResponse, null, 2)
                 }
               }
             ]
