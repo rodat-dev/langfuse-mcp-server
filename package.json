@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@10.12.4",
   "dependencies": {
     "@vercel/mcp-adapter": "^0.4.1",
     "dotenv": "^16.5.0",

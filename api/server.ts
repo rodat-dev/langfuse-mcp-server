@@ -19,7 +19,40 @@ async function handleRequest(request: Request) {
     }
   );
 
+  const astrodogPrompts = [
+    "denis",
+    "frankie",
+    "jess",
+    "peggy",
+    "mish",
+    "otto",
+    "gertie"
+  ];
+
+  const astrodogMissionReportPrompts = astrodogPrompts.map(name => `mission-reporter-${name}`);
+
   return await createMcpHandler((server) => {
+    astrodogPrompts.concat(astrodogMissionReportPrompts).forEach(name => {
+      server.prompt(
+        `get-prompt-${name}`,
+        `Get the prompt named '${name}'`,
+        {},
+        async (): Promise<GetPromptResult> => {
+          return {
+            messages: [
+              {
+                role: "assistant",
+                content: {
+                  type: "text",
+                  text: await promptManager.getPrompt({ name })
+                }
+              }
+            ]
+          };
+        }
+      )
+    });
+
     // ────────────────────────────────────────────────────────────────────────────
     // High-level reasoning prompts                                             
     // These are consumed by the MCP agent (not end-users) and explain **when**
