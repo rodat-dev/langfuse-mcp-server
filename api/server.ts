@@ -34,7 +34,7 @@ async function handleRequest(request: Request) {
   return await createMcpHandler((server) => {
     astrodogPrompts.concat(astrodogMissionReportPrompts).forEach(name => {
       server.prompt(
-        `get-prompt-${name}`,
+        `prompt-${name}`,
         `Get the prompt named '${name}'`,
         {},
         async (): Promise<GetPromptResult> => {
