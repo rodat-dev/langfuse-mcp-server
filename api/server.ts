@@ -7,9 +7,9 @@ import { type GetPromptResult } from "@modelcontextprotocol/sdk/types.js";
 async function handleRequest(request: Request) {
   const url: URL = new URL(request.url);
   const queryParams = url.searchParams;
-  const host = queryParams.get("host") || process.env.LANGFUSE_HOST || "https://cloud.langfuse.com";
-  const secretKey = queryParams.get("secretKey") || process.env.LANGFUSE_SECRET_KEY || "";
-  const publicKey = queryParams.get("publicKey") || process.env.LANGFUSE_PUBLIC_KEY || "";
+  const host = queryParams.get("host") || "https://cloud.langfuse.com";
+  const secretKey = queryParams.get("secretKey") || "";
+  const publicKey = queryParams.get("publicKey") || "";
 
   const promptManager = new PromptManager(
     {
@@ -38,14 +38,19 @@ async function handleRequest(request: Request) {
         `Get the prompt named '${name}'`,
         {},
         async (): Promise<GetPromptResult> => {
+          let stringifiedPrompt = "";
           const promptResponse = await promptManager.getPrompt({ name });
+          if (name.startsWith("mission-reporter-")) {
+            stringifiedPrompt = `# Personality\n\n${JSON.stringify(promptResponse, null, 2)}`;
+          }
+          stringifiedPrompt += `\n\n# The Mission Reporter's Style\n\n${JSON.stringify(promptResponse, null, 2)}`;
           return {
             messages: [
               {
                 role: "assistant",
                 content: {
                   type: "text",
-                  text: JSON.stringify(promptResponse, null, 2)
+                  text: stringifiedPrompt
                 }
               }
             ]
